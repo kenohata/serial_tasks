@@ -12,6 +12,7 @@
  *
  *= require normalize-rails
  *= require llss/llss
+ *= require mixins
  *= require_tree .
  *= require_self
  */
