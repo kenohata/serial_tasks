@@ -1,6 +1,6 @@
 %h2
   Tasks
 
-#tasks
+%form#new-task
 
-#new-task
+#tasks

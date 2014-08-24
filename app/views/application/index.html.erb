@@ -3,6 +3,10 @@
 
 <script type="text/javascript">
   $(function(){
+    window.db = {};
+    db.tasks = new ST.Collections.Tasks();
+    db.tasks.fetch()
+
     var hView = new ST.Views.HeaderView({ el: $('#header') });
     var pView = new ST.Views.PersonalView({ el: $('#app') });
     hView.render();

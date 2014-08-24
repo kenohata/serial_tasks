@@ -1,3 +1,2 @@
-%form
-  %input{ type: "text", placeholder: "Task name" }
-  %input{ type: "submit", value: "send" }
+%input{ type: "text", name: "name", placeholder: "Task name" }
+%input{ type: "submit", value: "send" }

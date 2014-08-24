@@ -1,1 +1,10 @@
-taskname
+#name.name
+
+#weight.weight
+
+.slider-wrapper
+  #weight-slider
+
+%i.fa.fa-play
+%i.fa.fa-pause
+%i.fa.fa-stop
