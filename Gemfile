@@ -28,6 +28,7 @@ gem 'spring',        group: :development
 
 gem 'backbone-on-rails'
 gem 'handlebars_assets'
+gem 'normalize-rails'
 gem 'llss', git: "https://github.com/kenohata/llss"
 
 # Use ActiveModel has_secure_password
