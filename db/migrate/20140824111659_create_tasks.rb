@@ -3,6 +3,7 @@ class CreateTasks < ActiveRecord::Migration
     create_table :tasks do |t|
       t.string :name
       t.integer :weight
+      t.string :logging_type
 
       t.timestamps
 
