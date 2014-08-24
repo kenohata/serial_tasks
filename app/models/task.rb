@@ -6,6 +6,7 @@ class Task < ActiveRecord::Base
   validates :weight, numericality: true
   validates :logging_type, inclusion: { in: %w(original history) }
   validates :task_state, inclusion: { in: %w(todo doing done) }
+  validates :original, presence: true, if: :history?
 
   scope :original, -> { where(logging_type: "original") }
   scope :history, -> { where(logging_type: "history") }
