@@ -27,6 +27,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'backbone-on-rails'
+gem 'hamlbars'
 gem 'handlebars_assets'
 gem 'normalize-rails'
 gem 'llss', git: "https://github.com/kenohata/llss"
