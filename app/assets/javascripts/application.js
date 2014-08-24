@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require underscore
 //= require backbone
+//= require handlebars.runtime
 //= require serial_tasks
 //= require_tree ../templates
 //= require_tree ./models
