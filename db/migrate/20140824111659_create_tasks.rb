@@ -5,6 +5,8 @@ class CreateTasks < ActiveRecord::Migration
       t.integer :weight
 
       t.timestamps
+
+      t.index :name
     end
   end
 end
