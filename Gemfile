@@ -32,6 +32,7 @@ gem 'backbone-on-rails'
 gem 'hamlbars'
 gem 'handlebars_assets'
 gem 'normalize-rails'
+gem 'font-awesome-rails'
 gem 'llss', git: "https://github.com/kenohata/llss"
 
 # Use ActiveModel has_secure_password
