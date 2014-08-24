@@ -1,4 +1,4 @@
-window.SerialTasks =
+window.ST =
   Models: {}
   Collections: {}
   Views: {}
