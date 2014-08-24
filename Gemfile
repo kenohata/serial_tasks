@@ -27,6 +27,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'jquery-ui-rails'
+gem 'touchpunch-rails'
 gem 'backbone-on-rails'
 gem 'hamlbars'
 gem 'handlebars_assets'
