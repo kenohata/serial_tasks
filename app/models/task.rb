@@ -31,6 +31,10 @@ class Task < ActiveRecord::Base
     end
   end
 
+  after_update do |task|
+    @sha1 = nil
+  end
+
   def original?
     logging_type == "original"
   end
