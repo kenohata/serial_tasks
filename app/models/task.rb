@@ -21,6 +21,10 @@ class Task < ActiveRecord::Base
     task.task_state   ||= "todo"
   end
 
+  before_validation do |task|
+    task.name = task.name[0..120]
+  end
+
   before_update do |task|
     if changed?
       history = logs.build name: name_was, weight: weight_was, logging_type: "history"
