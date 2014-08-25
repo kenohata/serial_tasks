@@ -1,4 +1,6 @@
 class Task < ActiveRecord::Base
+  attr_accessor :sha1
+
   belongs_to :original, foreign_key: :original_task_id, class_name: Task
   has_many :logs, foreign_key: :original_task_id, class_name: Task
 
@@ -7,6 +9,7 @@ class Task < ActiveRecord::Base
   validates :logging_type, inclusion: { in: %w(original history) }
   validates :task_state, inclusion: { in: %w(todo doing done) }
   validates :original, presence: true, if: :history?
+  validates :sha1_changed?, inclusion: { in: [false] }, if: :persisted?
 
   scope :original, -> { where(logging_type: "original") }
   scope :history, -> { where(logging_type: "history") }
@@ -42,5 +45,19 @@ class Task < ActiveRecord::Base
 
   def done?
     task_state == "done"
+  end
+
+  def sha1
+    str = name + weight.to_s + task_state
+    @sha1 ||= Digest::SHA1.hexdigest str
+  end
+
+  def sha1_was
+    str = name_was + weight_was.to_s + task_state_was
+    Digest::SHA1.hexdigest str
+  end
+
+  def sha1_changed?
+    sha1 != sha1_was
   end
 end

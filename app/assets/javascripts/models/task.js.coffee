@@ -11,3 +11,4 @@ class ST.Models.Task extends Backbone.Model
     task:
       name: @get 'name'
       weight: @get 'weight'
+      sha1: @get 'sha1'
