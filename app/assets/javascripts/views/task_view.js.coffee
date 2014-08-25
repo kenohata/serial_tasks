@@ -24,28 +24,29 @@ class ST.Views.TaskView extends Backbone.View
   render: ->
     @$el.html @template()
 
-    @renderName()
-    @renderWeight()
-
-    @$('#weight-slider').slider
+    @$slider = @$('#weight-slider').slider
       value: @task.get 'weight'
       min: 3,
       max: 12,
       step: 1
 
+    @renderName()
+    @renderWeight()
     @renderSelected()
 
   enableSlider: ->
-    @$('#weight-slider').slider "enable"
+    @$slider.slider "enable"
 
   disableSlider: ->
-    @$('#weight-slider').slider "disable"
+    @$slider.slider "disable"
 
   renderName: ->
     @$('#name').html @task.get 'name'
 
   renderWeight: ->
-    @$('#weight').html @task.get 'weight'
+    weight = @task.get 'weight'
+    @$('#weight').html weight
+    @$slider.slider "value", weight
 
   renderSelected: ->
     if @task.get 'selected'
@@ -61,7 +62,14 @@ class ST.Views.TaskView extends Backbone.View
 
   slidestop: (e, ui) ->
     @task.set weight: ui.value
-    @task.save null
+    @task.save null,
+      success: (model, response, options) =>
+        model.set sha1: response.sha1
+
+      error: (model, response, options) =>
+        if response.responseJSON.hasOwnProperty 'sha1_changed?'
+          if confirm "Conflict! gonna fetch the model."
+            model.fetch()
 
   slide: (e, ui) ->
     @task.set weight: ui.value
