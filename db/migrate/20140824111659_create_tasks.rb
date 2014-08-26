@@ -8,7 +8,7 @@ class CreateTasks < ActiveRecord::Migration
       t.integer :super_task_id
       t.string :history_type
       t.string :task_state
-      t.boolean :is_super_task
+      t.string :sub_task_type
 
       t.timestamps
 
@@ -17,7 +17,7 @@ class CreateTasks < ActiveRecord::Migration
       t.index :previous_task_id
       t.index :super_task_id
       t.index :task_state
-      t.index :is_super_task
+      t.index :sub_task_type
     end
   end
 end

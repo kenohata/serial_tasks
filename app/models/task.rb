@@ -14,19 +14,19 @@ class Task < ActiveRecord::Base
   validates :task_state, inclusion: { in: %w(todo doing pause done quit) }
   validates :original, presence: true, if: :history?
   validates :sha1_changed?, inclusion: { in: [false] }, if: :persisted?
-  validates :is_super_task, presence: true, inclusion: { in: [true, false] }
+  validates :sub_task_type, presence: true, inclusion: { in: %w(super sub) }
 
   scope :original, -> { where(history_type: "original") }
   scope :history, -> { where(history_type: "history") }
-  scope :super_tasks, -> { where(is_super_task: true) }
-  scope :sub_tasks, -> { where(is_super_task: false) }
+  scope :super_tasks, -> { where(sub_task_type: "super") }
+  scope :sub_tasks, -> { where(sub_task_type: "sub") }
 
   after_initialize do |task|
     task.name          ||= ""
     task.weight        ||= 3
     task.history_type  ||= "original"
     task.task_state    ||= "todo"
-    task.is_super_task ||= true
+    task.sub_task_type ||= "sub"
   end
 
   before_validation do |task|
@@ -64,11 +64,11 @@ class Task < ActiveRecord::Base
   end
 
   def super_task?
-    is_super_task
+    sub_task_type == "super"
   end
 
   def sub_task?
-    not is_super_task
+    sub_task_type == "sub"
   end
 
   def sha1
