@@ -1,10 +1,12 @@
 class Task < ActiveRecord::Base
   attr_accessor :sha1
 
+  belongs_to :super_task, class_name: Task
   belongs_to :original, foreign_key: :original_task_id, class_name: Task
   belongs_to :previous_task, class_name: Task
   has_one :next_task, foreign_key: :previous_task_id, class_name: Task
   has_many :logs, foreign_key: :original_task_id, class_name: Task
+  has_many :sub_tasks, foreign_key: :super_task_id, class_name: Task
 
   validates :name, presence: true, length: { in: 0..120 }
   validates :weight, numericality: true
@@ -12,15 +14,19 @@ class Task < ActiveRecord::Base
   validates :task_state, inclusion: { in: %w(todo doing pause done quit) }
   validates :original, presence: true, if: :history?
   validates :sha1_changed?, inclusion: { in: [false] }, if: :persisted?
+  validates :is_super_task, presence: true, inclusion: { in: [true, false] }
 
   scope :original, -> { where(logging_type: "original") }
   scope :history, -> { where(logging_type: "history") }
+  scope :super_tasks, -> { where(is_super_task: true) }
+  scope :sub_tasks, -> { where(is_super_task: false) }
 
   after_initialize do |task|
     task.name         ||= ""
     task.weight       ||= 3
     task.logging_type ||= "original"
     task.task_state   ||= "todo"
+    task.is_super_task ||= true
   end
 
   before_validation do |task|
@@ -55,6 +61,14 @@ class Task < ActiveRecord::Base
 
   def done?
     task_state == "done"
+  end
+
+  def super_task?
+    is_super_task
+  end
+
+  def sub_task?
+    not is_super_task
   end
 
   def sha1
