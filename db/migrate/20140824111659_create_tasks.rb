@@ -6,7 +6,7 @@ class CreateTasks < ActiveRecord::Migration
       t.integer :original_task_id
       t.integer :previous_task_id
       t.integer :super_task_id
-      t.string :logging_type
+      t.string :history_type
       t.string :task_state
       t.boolean :is_super_task
 

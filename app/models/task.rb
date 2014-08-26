@@ -10,21 +10,21 @@ class Task < ActiveRecord::Base
 
   validates :name, presence: true, length: { in: 0..120 }
   validates :weight, numericality: true
-  validates :logging_type, inclusion: { in: %w(original history) }
+  validates :history_type, inclusion: { in: %w(original history) }
   validates :task_state, inclusion: { in: %w(todo doing pause done quit) }
   validates :original, presence: true, if: :history?
   validates :sha1_changed?, inclusion: { in: [false] }, if: :persisted?
   validates :is_super_task, presence: true, inclusion: { in: [true, false] }
 
-  scope :original, -> { where(logging_type: "original") }
-  scope :history, -> { where(logging_type: "history") }
+  scope :original, -> { where(history_type: "original") }
+  scope :history, -> { where(history_type: "history") }
   scope :super_tasks, -> { where(is_super_task: true) }
   scope :sub_tasks, -> { where(is_super_task: false) }
 
   after_initialize do |task|
     task.name          ||= ""
     task.weight        ||= 3
-    task.logging_type  ||= "original"
+    task.history_type  ||= "original"
     task.task_state    ||= "todo"
     task.is_super_task ||= true
   end
@@ -44,11 +44,11 @@ class Task < ActiveRecord::Base
   end
 
   def original?
-    logging_type == "original"
+    history_type == "original"
   end
 
   def history?
-    logging_type == "history"
+    history_type == "history"
   end
 
   def todo?
@@ -95,7 +95,7 @@ class Task < ActiveRecord::Base
     histories.build name: name_was,
       weight: weight_was,
       task_state: task_state_was,
-      logging_type: "history",
+      history_type: "history",
       previous_task: self
   end
 end
