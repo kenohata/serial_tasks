@@ -9,7 +9,7 @@ class Task < ActiveRecord::Base
   validates :name, presence: true, length: { in: 0..120 }
   validates :weight, numericality: true
   validates :logging_type, inclusion: { in: %w(original history) }
-  validates :task_state, inclusion: { in: %w(todo doing done) }
+  validates :task_state, inclusion: { in: %w(todo doing pause done quit) }
   validates :original, presence: true, if: :history?
   validates :sha1_changed?, inclusion: { in: [false] }, if: :persisted?
 
@@ -31,6 +31,7 @@ class Task < ActiveRecord::Base
     if changed?
       history = logs.build name: name_was,
         weight: weight_was,
+        task_state: task_state_was,
         logging_type: "history",
         previous_task: task
     end
