@@ -13,7 +13,7 @@
   :border-radius 5px
   :min-width 240px
   :max-width 480px
-  :min-height 60px
+  :min-height 120px
   :position relative
 
   @media screen
@@ -26,14 +26,20 @@
     :border-color rgb(247, 169, 42)
     :background-color rgb(240, 218, 182)
 
+  .avatar
+    @include top-left(2px, 2px)
+    :max-width 24px
+    :max-height 24px
+    :border-radius 12px
+
   .name
-    @include top-left(10px, 10px)
+    @include top-left(2px, 40px)
 
   .weight
-    @include top-right(10px, 10px)
+    @include top-right(60px, 10px)
 
   .slider-wrapper
-    @include bottom-left(10px, 10px)
+    @include top-left(40px, 10px)
     :width 300px
 
     @media screen
@@ -41,6 +47,18 @@
 
     @media (max-width: 400px)
       :width 90%
+
+  .first
+    @include top-left(30px, 0px)
+    :width 100%
+
+  .second
+    @include top-left(80px, 0px)
+    :width 100%
+
+  .state
+    @include top-right(0px, 0px)
+
   i
     font-size: 32px
     color: #888
@@ -48,3 +66,14 @@
     &:hover
       color: #333
 
+    &.fa-play
+      @include top-left(110px, 20px)
+
+    &.fa-pause
+      @include top-left(110px, 50px)
+
+    &.fa-stop
+      @include top-left(110px, 80px)
+
+    &.fa-times
+      @include top-left(110px, 110px)

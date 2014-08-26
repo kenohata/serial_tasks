@@ -1,10 +1,28 @@
+%img#avatar.avatar
 #name.name
 
-#weight.weight
+%hr.first
 
 .slider-wrapper
   #weight-slider
 
-%i.fa.fa-play
-%i.fa.fa-pause
-%i.fa.fa-stop
+#weight.weight
+
+%hr.second
+
+#todo.state.todo
+  todo
+#doing.state.doing
+  doing
+#pause.state.pause
+  pause
+#done.state.done
+  done
+#quit.state.quit
+  quit
+
+.btn-group
+  %i.fa.fa-play
+  %i.fa.fa-pause
+  %i.fa.fa-stop
+  %i.fa.fa-times
