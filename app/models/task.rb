@@ -73,4 +73,8 @@ class Task < ActiveRecord::Base
   def sha1_changed?
     sha1 != sha1_was
   end
+
+  def avatar_url
+    "https://pbs.twimg.com/profile_images/491118499603812352/lb0pa6fo_bigger.png"
+  end
 end
