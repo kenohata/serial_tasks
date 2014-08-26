@@ -29,11 +29,7 @@ class Task < ActiveRecord::Base
 
   before_update do |task|
     if changed?
-      history = logs.build name: name_was,
-        weight: weight_was,
-        task_state: task_state_was,
-        logging_type: "history",
-        previous_task: task
+      build_histroy
     end
   end
 
@@ -77,5 +73,15 @@ class Task < ActiveRecord::Base
 
   def avatar_url
     "https://pbs.twimg.com/profile_images/491118499603812352/lb0pa6fo_bigger.png"
+  end
+
+  private
+
+  def build_histroy
+    logs.build name: name_was,
+      weight: weight_was,
+      task_state: task_state_was,
+      logging_type: "history",
+      previous_task: self
   end
 end
