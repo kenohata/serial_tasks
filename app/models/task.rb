@@ -4,7 +4,7 @@ class Task < ActiveRecord::Base
   belongs_to :super_task, class_name: Task
   belongs_to :original, foreign_key: :original_task_id, class_name: Task
   belongs_to :previous_task, class_name: Task
-  has_one :next_task, foreign_key: :previous_task_id, class_name: Task
+  has_one  :next_task, foreign_key: :previous_task_id, class_name: Task
   has_many :logs, foreign_key: :original_task_id, class_name: Task
   has_many :sub_tasks, foreign_key: :super_task_id, class_name: Task
 
@@ -22,10 +22,10 @@ class Task < ActiveRecord::Base
   scope :sub_tasks, -> { where(is_super_task: false) }
 
   after_initialize do |task|
-    task.name         ||= ""
-    task.weight       ||= 3
-    task.logging_type ||= "original"
-    task.task_state   ||= "todo"
+    task.name          ||= ""
+    task.weight        ||= 3
+    task.logging_type  ||= "original"
+    task.task_state    ||= "todo"
     task.is_super_task ||= true
   end
 
