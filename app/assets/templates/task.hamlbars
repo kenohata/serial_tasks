@@ -24,5 +24,5 @@
 .btn-group
   %i.fa.fa-play
   %i.fa.fa-pause
-  %i.fa.fa-stop
+  %i.fa.fa-check-square-o
   %i.fa.fa-times

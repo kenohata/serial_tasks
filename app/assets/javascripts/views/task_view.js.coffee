@@ -7,7 +7,7 @@ class ST.Views.TaskView extends Backbone.View
     'slidestop' : 'slidestop'
     'click .fa-play' : 'play'
     'click .fa-pause' : 'pause'
-    'click .fa-stop' : 'stop'
+    'click .fa-check-square-o' : 'stop'
     'click .fa-times' : 'quit'
     'click' : 'click'
 
