@@ -2,6 +2,8 @@ class Task < ActiveRecord::Base
   attr_accessor :sha1
 
   belongs_to :original, foreign_key: :original_task_id, class_name: Task
+  belongs_to :previous_task, class_name: Task
+  has_one :next_task, foreign_key: :previous_task_id, class_name: Task
   has_many :logs, foreign_key: :original_task_id, class_name: Task
 
   validates :name, presence: true, length: { in: 0..120 }
@@ -27,7 +29,10 @@ class Task < ActiveRecord::Base
 
   before_update do |task|
     if changed?
-      history = logs.build name: name_was, weight: weight_was, logging_type: "history"
+      history = logs.build name: name_was,
+        weight: weight_was,
+        logging_type: "history",
+        previous_task: task
     end
   end
 
