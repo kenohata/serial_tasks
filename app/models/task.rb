@@ -5,7 +5,7 @@ class Task < ActiveRecord::Base
   belongs_to :original, foreign_key: :original_task_id, class_name: Task
   belongs_to :previous_task, class_name: Task
   has_one  :next_task, foreign_key: :previous_task_id, class_name: Task
-  has_many :logs, foreign_key: :original_task_id, class_name: Task
+  has_many :histories, foreign_key: :original_task_id, class_name: Task
   has_many :sub_tasks, foreign_key: :super_task_id, class_name: Task
 
   validates :name, presence: true, length: { in: 0..120 }
@@ -92,7 +92,7 @@ class Task < ActiveRecord::Base
   private
 
   def build_histroy
-    logs.build name: name_was,
+    histories.build name: name_was,
       weight: weight_was,
       task_state: task_state_was,
       logging_type: "history",
