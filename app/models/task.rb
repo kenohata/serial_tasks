@@ -2,11 +2,11 @@ class Task < ActiveRecord::Base
   attr_accessor :sha1
 
   belongs_to :super_task, class_name: Task
-  belongs_to :original, foreign_key: :original_task_id, class_name: Task
+  belongs_to :original, class_name: Task, foreign_key: :original_task_id
   belongs_to :previous_task, class_name: Task
-  has_one  :next_task, foreign_key: :previous_task_id, class_name: Task
-  has_many :histories, foreign_key: :original_task_id, class_name: Task
-  has_many :sub_tasks, foreign_key: :super_task_id, class_name: Task
+  has_one  :next_task, class_name: Task, foreign_key: :previous_task_id
+  has_many :histories, class_name: Task, foreign_key: :original_task_id
+  has_many :sub_tasks, class_name: Task, foreign_key: :super_task_id
 
   validates :name, presence: true, length: { in: 0..120 }
   validates :weight, numericality: true
