@@ -9,7 +9,6 @@ class ST.Views.TaskView extends Backbone.View
     'click .fa-pause' : 'pause'
     'click .fa-check-square-o' : 'stop'
     'click .fa-times' : 'quit'
-    'click' : 'click'
 
   initialize: (options) ->
     @task = options.task
@@ -20,10 +19,6 @@ class ST.Views.TaskView extends Backbone.View
 
     @listenTo @task, 'change:weight', =>
       @renderWeight()
-
-    @listenTo @task, 'change:selected', (task) =>
-      @renderSelected()
-      @renderClass()
 
     @listenTo @task, 'change:task_state', =>
       @renderState()
@@ -39,15 +34,8 @@ class ST.Views.TaskView extends Backbone.View
 
     @renderName()
     @renderWeight()
-    @renderSelected()
     @renderAvatar()
     @renderState()
-
-  enableSlider: ->
-    @$slider.slider "enable"
-
-  disableSlider: ->
-    @$slider.slider "disable"
 
   renderName: ->
     @$('#name').html @task.get 'name'
@@ -59,12 +47,6 @@ class ST.Views.TaskView extends Backbone.View
 
   renderAvatar: ->
     @$('#avatar').attr src: @task.get 'avatar_url'
-
-  renderSelected: ->
-    if @task.get 'selected'
-      @enableSlider()
-    else
-      @disableSlider()
 
   renderState: ->
     @$('.state').addClass 'display-none'
@@ -80,12 +62,6 @@ class ST.Views.TaskView extends Backbone.View
         @$('.done').removeClass 'display-none'
       when 'quit'
         @$('.quit').removeClass 'display-none'
-
-  renderClass: ->
-    if @task.get 'selected'
-      @$el.addClass 'active'
-    else
-      @$el.removeClass 'active'
 
   slidestop: (e, ui) ->
     @task.set weight: ui.value
@@ -109,11 +85,6 @@ class ST.Views.TaskView extends Backbone.View
   quit: ->
     @task.set task_state :'quit'
     @save()
-
-  click: ->
-    selected = @tasks.findWhere selected: true
-    selected.set selected: false if selected
-    @task.set selected: true
 
   save: ->
     @task.save null,
