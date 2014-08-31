@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/kenohata/llss
-  revision: 83f833924ea6200a9c6959d7569ed0a5de1dc57f
+  revision: d90ab846aee845b98ec32b0cf189324cba0b8095
   specs:
     llss (0.0.1)
 
